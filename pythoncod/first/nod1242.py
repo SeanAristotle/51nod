@@ -1,14 +1,17 @@
-from numpy import *
-import numpy as np
-mod = np.array([[1000000009, 1000000009],[1000000009, 1000000009]])
-a = np.array([[1, 1],[1, 0]])
+def multi(a, b):
+	c = [[0,0],[0,0]]
+	c[0][0] = (a[0][0] * b[0][0] + a[0][1] * b[1][0]) % 1000000009
+	c[0][1] = (a[0][0] * b[0][1] + a[0][1] * b[1][1]) % 1000000009
+	c[1][0] = (a[1][0] * b[0][0] + a[1][1] * b[1][0]) % 1000000009
+	c[1][1] = (a[1][0] * b[0][1] + a[1][1] * b[1][1]) % 1000000009
+	return c
+
+a = [[1, 1],[1, 0]]
 n = int(input()) 
-res = np.array([[1, 0],[0, 1]])
+res = [[1, 0],[0, 1]]
 while n > 0:
 	if n & 1 == 1:
-		res = np.dot(res, a)
-		res = res % mod
-	a = np.dot(a, a)
-	a = a % mod
+		res = multi(res, a)
+	a = multi(a, a)
 	n = n >> 1
-print(res[0][1])
+print(res[0][1]%1000000009)
